@@ -1,8 +1,14 @@
 package com.example.inventory.entity;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
 import jakarta.persistence.*;
 
 @Entity
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
+
 public class Vehicle {
 
     @Id

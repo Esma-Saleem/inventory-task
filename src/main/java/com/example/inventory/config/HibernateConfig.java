@@ -12,11 +12,23 @@ public class HibernateConfig {
 
     @PersistenceContext
     private EntityManager entityManager;
-
+/* 
     @PostConstruct
     public void enableFilter() {
         Session session = entityManager.unwrap(Session.class);
         session.enableFilter("tenantFilter")
                .setParameter("tenantId", TenantContext.getTenantId());
     }
+               */
+
+    @PostConstruct
+public void enableFilter() {
+    String tenantId = TenantContext.getTenantId();
+
+    if (tenantId != null) {
+        Session session = entityManager.unwrap(Session.class);
+        session.enableFilter("tenantFilter")
+               .setParameter("tenantId", tenantId);
+    }
+}
 }
